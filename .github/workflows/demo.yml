@@ -1,0 +1,20 @@
+name: Synthetic demo
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - name: Upstream build prerequisites
+        run: sudo apt-get update && sudo apt-get install -y libldap2-dev libsasl2-dev
+      - run: bash scripts/demo.sh setup
+      - run: bash scripts/demo.sh test
+      - name: Verify checked-in public evidence
+        run: bash scripts/demo.sh verify "$PWD/evidence/sample-election.json" --expected-fingerprint QjqlYLzVq9+0TsharA/deAU9QeqGouIr6BCRc6xdP3M
+      - name: Generate and verify fresh synthetic election
+        run: |
+          bash scripts/demo.sh sample --output "$PWD/.runtime/fresh-election.json"
+          bash scripts/demo.sh verify "$PWD/.runtime/fresh-election.json"

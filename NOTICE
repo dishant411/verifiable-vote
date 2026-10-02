@@ -1,0 +1,8 @@
+Verifiable Vote research wrapper
+Copyright 2026 Verifiable Vote contributors
+
+Uses unmodified Helios Election System downloaded from:
+https://github.com/benadida/helios-server
+Pinned commit: 88621e3196961ec03fe54bbd3a1c2196e715e9a2
+Helios is licensed under Apache License 2.0; upstream LICENSE and contributor credits remain in the downloaded checkout.
+No endorsement or independent cryptographic audit is implied.
