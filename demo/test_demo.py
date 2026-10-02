@@ -111,3 +111,18 @@ class DemoTests(TestCase):
         record = json.loads((ROOT / 'evidence/sample-election.json').read_text())
         with self.assertNumQueries(0):
             self.assertEqual(verify(record)['status'], 'VERIFIED')
+
+    def test_directory_excludes_private_archived_and_incomplete_elections(self):
+        from helios.models import Election
+        from django.urls import reverse
+        from django.utils import timezone
+        for short_name, changes in [('private-card', {'private_p': True}),
+                                    ('archived-card', {'archived_at': timezone.now()}),
+                                    ('incomplete-card', {'uuid': ''})]:
+            election = create(short_name)
+            Election.objects.filter(pk=election.pk).update(**changes)
+        page = self.client.get('/')
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, reverse('election@view', args=[self.election.uuid]))
+        self.assertEqual(len(page.context['elections']), 1)
+        self.assertContains(page, '/demo-ui/design.css')

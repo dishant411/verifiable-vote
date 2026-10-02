@@ -6,6 +6,14 @@ Open-source research prototype built around [Helios](https://github.com/benadida
 
 The first milestone evaluates an existing working voting application before building proven gaps. Helios supplies the administrator UI, password voter authentication, browser-encrypted ballots, trackers, revoting, and homomorphic tally. This repository adds a pinned startup recipe, a two-voter fixture, a public evidence export, offline verification orchestration, and focused integration tests. Upstream code is downloaded unchanged, not copied or reimplemented.
 
+## Watch the demo
+
+[![Watch the voter and administrator walkthrough](docs/demo/preview.jpg)](https://github.com/dishant411/verifiable-vote/blob/main/docs/demo/voter-and-admin-demo.mp4)
+
+**[Watch or download the demo video](https://github.com/dishant411/verifiable-vote/raw/refs/heads/main/docs/demo/voter-and-admin-demo.mp4)** · 1 minute 57 seconds · Captioned, without audio.
+
+The redesigned interface walkthrough shows the administrator reviewing the roster and opening the election, a voter encrypting and submitting a ballot and saving the receipt, then the administrator closing voting, computing the tally, and publishing the results. All accounts and votes are synthetic. The recording uses one Helios trustee and does not demonstrate offline verification.
+
 ## Quick start
 
 Install [uv](https://docs.astral.sh/uv/getting-started/installation/) and Git. On Linux, install LDAP/SASL development libraries (`libldap2-dev libsasl2-dev`) before setup. A compiler and relevant headers may be required for upstream `python-ldap`. Tested on macOS arm64 with uv 0.12.22 and Python 3.13.16.
